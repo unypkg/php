@@ -41,7 +41,7 @@ gitdepth="--depth=1"
 ### Get version info from git remote
 # shellcheck disable=SC2086
 latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-7.4[0-9.]*$" | tail --lines=1)"
-latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|v||")"
+latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
 latest_commit_id="$(echo "$latest_head" | cut --fields=1)"
 
 version_details
@@ -60,14 +60,14 @@ for ext in "${extensions[@]}"; do
     wget -O "$ext".tgz https://pecl.php.net/get/"$ext"
     mkdir -p ext/"$ext"
     tar -zxf "$ext".tgz --strip-components=1 -C ext/"$ext"/
+    rm "$ext".tgz
 done
 
-# Deleting configure script for extensions to be compiled also
-rm configure
 ./buildconf --force
 
 cd /uny/sources || exit
-mv php-src php
+mv -v php-src php
+pkg_git_repo_dir="php"
 
 version_details
 archiving_source
