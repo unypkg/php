@@ -6,7 +6,8 @@ set -vx
 ######################################################################################################################
 ### Setup Build System and GitHub
 
-apt install -y
+apt install -y pkg-config build-essential autoconf bison re2c \
+    libxml2-dev libsqlite3-dev
 
 wget -qO- uny.nu/pkg | bash -s buildsys
 mkdir /uny/tmp
@@ -39,8 +40,8 @@ gitdepth="--depth=1"
 
 ### Get version info from git remote
 # shellcheck disable=SC2086
-latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "v[0-9.]*$" | tail --lines=1)"
-latest_ver="$(echo "$latest_head" | grep -o "v[0-9.]*" | sed "s|v||")"
+latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-7.4[0-9.]*$" | tail --lines=1)"
+latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|v||")"
 latest_commit_id="$(echo "$latest_head" | cut --fields=1)"
 
 version_details
@@ -51,20 +52,22 @@ echo "newer" >release-"$pkgname"
 check_for_repo_and_create
 git_clone_source_repo
 
-cd openresty || exit
-wget -O pcre.patch https://patch-diff.githubusercontent.com/raw/openresty/openresty/pull/956.patch
-git apply pcre.patch
-make
+cd php-src || exit
+
+# Downloading external extensions
+declare -a extensions=("imagick" "redis")
+for ext in "${extensions[@]}"; do
+    wget -O "$ext".tgz https://pecl.php.net/get/"$ext"
+    mkdir -p ext/"$ext"
+    tar -zxf "$ext".tgz --strip-components=1 -C ext/"$ext"/
+done
+
+# Deleting configure script for extensions to be compiled also
+rm configure
+./buildconf --force
 
 cd /uny/sources || exit
-mv openresty openrestysource
-rm openrestysource/openresty-*.tar.*
-mv openrestysource/openresty-* openresty
-
-cd openresty/bundle/ngx_stream_lua-* || exit
-wget -O config.patch https://patch-diff.githubusercontent.com/raw/openresty/stream-lua-nginx-module/pull/335.patch
-git apply config.patch
-cd /uny/sources || exit
+mv php-src php
 
 version_details
 archiving_source
@@ -77,7 +80,7 @@ archiving_source
 unyc <<"UNYEOF"
 set -vx
 source /uny/build/functions
-pkgname="openresty"
+pkgname="php"
 
 version_verbose_log_clean_unpack_cd
 get_env_var_values
@@ -86,31 +89,40 @@ get_include_paths_temp
 ####################################################
 ### Start of individual build script
 
-#unset LD_RUN_PATH
+unset LD_RUN_PATH
 
-#pcre2_path=(/uny/pkg/pcre2/*/)
-#    --with-cc-opt="-I${pcre2_path[0]}include" \
-#    --with-ld-opt="-L${pcre2_path[0]}lib" \
-
-./configure --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
-    --with-ld-opt="$LDFLAGS" \
-    --with-openssl-opt=enable-ec_nistp_64_gcc_128 \
-    --with-openssl-opt=no-weak-ssl-ciphers \
-    --with-pcre-jit \
-    --with-luajit \
-    --with-file-aio \
-    --with-http_dav_module \
-    --with-http_gzip_static_module \
-    --with-http_realip_module \
-    --with-http_ssl_module \
-    --with-http_stub_status_module \
-    --with-mail \
-    --with-mail_ssl_module \
-    --with-http_v2_module \
-    --with-stream \
-    --with-stream_ssl_module \
-    --with-http_iconv_module \
-    -j"$(nproc)"
+./configure \
+    --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
+    --with-openssl \
+    --enable-fpm \
+    --disable-cgi \
+    --disable-phpdbg \
+    --enable-sockets \
+    --without-sqlite3 \
+    --without-pdo-sqlite \
+    --with-mysqli \
+    --with-pdo-mysql \
+    --enable-ctype \
+    --with-curl \
+    --enable-exif \
+    --enable-mbstring \
+    --with-zip \
+    --with-bz2 \
+    --enable-bcmath \
+    --with-jpeg \
+    --with-webp \
+    --enable-intl \
+    --enable-pcntl \
+    --with-ldap \
+    --with-gmp \
+    --with-password-argon2 \
+    --with-sodium \
+    --with-zlib \
+    --with-freetype \
+    --enable-soap \
+    --enable-gd \
+    --with-imagick \
+    --enable-redis=shared
 
 make -j"$(nproc)"
 
@@ -121,16 +133,6 @@ make install
 
 add_to_paths_files
 dependencies_file_and_unset_vars
-
-# nginx dependencies
-echo "Shared objects required by: nginx"
-ldd /uny/pkg/"$pkgname"/"$pkgver"/nginx/sbin/nginx
-ldd /uny/pkg/"$pkgname"/"$pkgver"/nginx/sbin/nginx | grep -v "$pkgname/$pkgver" | sed "s|^.*ld-linux.*||" | grep -o "uny/pkg\(.*\)" | sed -e "s+uny/pkg/+unypkg/+" | grep -Eo "(unypkg/[a-z0-9]+/[0-9.]*)" |
-    sort -u >>/uny/pkg/"$pkgname"/"$pkgver"/rdep
-sort -u /uny/pkg/"$pkgname"/"$pkgver"/rdep -o /uny/pkg/"$pkgname"/"$pkgver"/rdep
-echo "Packages required by unypkg/$pkgname/$pkgver:"
-cat /uny/pkg/"$pkgname"/"$pkgver"/rdep
-
 cleanup_verbose_off_timing_end
 UNYEOF
 
