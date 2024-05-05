@@ -10,10 +10,9 @@ apt install -y pkg-config build-essential autoconf bison re2c \
     libxml2-dev libsqlite3-dev
 
 wget -qO- uny.nu/pkg | bash -s buildsys
-mkdir /uny/tmp
 
 ### Installing build dependencies
-unyp install pcre2 openssl
+unyp install pcre2 openssl libxml2 libpng
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
@@ -21,15 +20,13 @@ export UNY_AUTO_PAT
 GH_TOKEN="$(cat GH_TOKEN)"
 export GH_TOKEN
 
-source /uny/uny/build/github_conf
-source /uny/uny/build/download_functions
 source /uny/git/unypkg/fn
+uny_auto_github_conf
 
 ######################################################################################################################
 ### Timestamp & Download
 
-uny_build_date_seconds_now="$(date +%s)"
-uny_build_date_now="$(date -d @"$uny_build_date_seconds_now" +"%Y-%m-%dT%H.%M.%SZ")"
+uny_build_date
 
 mkdir -pv /uny/sources
 cd /uny/sources || exit
