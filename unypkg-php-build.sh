@@ -7,7 +7,7 @@ set -vx
 ### Setup Build System and GitHub
 
 apt install -y pkg-config build-essential autoconf bison re2c \
-    libxml2-dev libsqlite3-dev
+    libxml2-dev
 
 wget -qO- uny.nu/pkg | bash -s buildsys
 
