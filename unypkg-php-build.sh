@@ -12,7 +12,7 @@ apt install -y pkg-config build-essential autoconf bison re2c \
 wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
-unyp install pcre2 openssl libxml2 libpng
+unyp install re2c curl libgd pcre2 libxml2 libxslt libexif
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
@@ -90,16 +90,22 @@ unset LD_RUN_PATH
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
-    --with-openssl \
     --enable-fpm \
+    --with-fpm-user=unyweb \
+    --with-fpm-group=unyweb \
+    --with-config-file-path=/etc/uny \
+    --enable-gettext \
+    --with-readline \
     --disable-cgi \
     --disable-phpdbg \
     --enable-sockets \
     --without-sqlite3 \
     --without-pdo-sqlite \
     --with-mysqli \
+    --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
     --enable-ctype \
+    --with-openssl \
     --with-curl \
     --enable-exif \
     --enable-mbstring \
@@ -113,7 +119,6 @@ unset LD_RUN_PATH
     --with-ldap \
     --with-gmp \
     --with-password-argon2 \
-    --with-sodium \
     --with-zlib \
     --with-freetype \
     --enable-soap \
