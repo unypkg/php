@@ -12,7 +12,7 @@ apt install -y pkg-config build-essential autoconf bison re2c \
 wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
-unyp install re2c curl libgd imagemagick pcre2 libxml2 libxslt libexif
+unyp install re2c curl openssl libgd imagemagick pcre2 libxml2 libxslt libexif
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
