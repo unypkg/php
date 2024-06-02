@@ -90,6 +90,8 @@ get_include_paths_temp
 
 unset LD_RUN_PATH
 
+bzip2_dir=(/uny/pkg/bzip2/*)
+
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
     --enable-fpm \
@@ -112,7 +114,7 @@ unset LD_RUN_PATH
     --enable-exif \
     --enable-mbstring \
     --with-zip \
-    --with-bz2 \
+    --with-bz2="${bzip2_dir[0]}" \
     --enable-bcmath \
     --with-jpeg \
     --with-webp \
