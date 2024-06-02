@@ -91,6 +91,7 @@ get_include_paths_temp
 unset LD_RUN_PATH
 
 bzip2_dir=(/uny/pkg/bzip2/*)
+imagick_dir=(/uny/pkg/imagemagick/*)
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -127,7 +128,7 @@ bzip2_dir=(/uny/pkg/bzip2/*)
     --with-freetype \
     --enable-soap \
     --enable-gd \
-    --with-imagick \
+    --with-imagick="${imagick_dir[0]}" \
     --enable-redis=shared
 
 make -j"$(nproc)"
