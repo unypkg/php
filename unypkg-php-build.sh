@@ -93,11 +93,9 @@ export PKG_CONFIG_LIBDIR="$PKG_CONFIG_PATH"
 
 unset LD_RUN_PATH
 
+readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
-
-#    --with-bz2="${bzip2_dir[0]}" \
-#    --with-imagick="${imagick_dir[0]}" \
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -106,7 +104,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --with-fpm-group=unyweb \
     --with-config-file-path=/etc/uny \
     --enable-gettext \
-    --with-readline \
+    --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
     --enable-sockets \
