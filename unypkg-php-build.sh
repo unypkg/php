@@ -13,7 +13,7 @@ wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
 unyp install re2c icu curl openssl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
-    pcre2 libxml2 libxslt libexif libzip oniguruma
+    pcre2 libxml2 libxslt libexif libzip oniguruma argon2
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
