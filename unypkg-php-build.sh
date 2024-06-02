@@ -92,8 +92,8 @@ export PKG_CONFIG_LIBDIR="$PKG_CONFIG_PATH"
 
 unset LD_RUN_PATH
 
-#bzip2_dir=(/uny/pkg/bzip2/*)
-#imagick_dir=(/uny/pkg/imagemagick/*)
+bzip2_dir=(/uny/pkg/bzip2/*)
+imagick_dir=(/uny/pkg/imagemagick/*)
 
 #    --with-bz2="${bzip2_dir[0]}" \
 #    --with-imagick="${imagick_dir[0]}" \
