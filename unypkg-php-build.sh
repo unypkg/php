@@ -120,7 +120,7 @@ unset LD_RUN_PATH
     --enable-exif \
     --enable-mbstring \
     --with-zip \
-    --with-bz2 \
+    --with-bz2="${bzip2_dir[0]}" \
     --enable-bcmath \
     --with-jpeg \
     --with-webp \
@@ -132,7 +132,7 @@ unset LD_RUN_PATH
     --with-freetype \
     --enable-soap \
     --enable-gd \
-    --with-imagick \
+    --with-imagick="${imagick_dir[0]}" \
     --enable-redis=shared
 
 make -j"$(nproc)"
