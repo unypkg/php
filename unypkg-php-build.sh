@@ -62,6 +62,8 @@ done
 ./buildconf --force
 
 cd /uny/sources || exit
+
+ls -lah
 mv -v php-src php
 pkg_git_repo_dir="php"
 
