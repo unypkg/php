@@ -88,6 +88,8 @@ get_include_paths_temp
 ####################################################
 ### Start of individual build script
 
+echo $PKG_CONFIG_PATH
+
 unset LD_RUN_PATH
 
 bzip2_dir=(/uny/pkg/bzip2/*)
