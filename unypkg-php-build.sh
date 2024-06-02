@@ -95,6 +95,7 @@ unset LD_RUN_PATH
 
 readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
+argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 
 ./configure \
@@ -126,7 +127,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --enable-intl \
     --enable-pcntl \
     --with-gmp \
-    --with-password-argon2 \
+    --with-password-argon2="${argon2_dir[0]}" \
     --with-zlib \
     --with-freetype \
     --enable-soap \
