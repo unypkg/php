@@ -92,8 +92,11 @@ export PKG_CONFIG_LIBDIR="$PKG_CONFIG_PATH"
 
 unset LD_RUN_PATH
 
-bzip2_dir=(/uny/pkg/bzip2/*)
-imagick_dir=(/uny/pkg/imagemagick/*)
+#bzip2_dir=(/uny/pkg/bzip2/*)
+#imagick_dir=(/uny/pkg/imagemagick/*)
+
+#    --with-bz2="${bzip2_dir[0]}" \
+#    --with-imagick="${imagick_dir[0]}" \
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -117,20 +120,19 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --enable-exif \
     --enable-mbstring \
     --with-zip \
-    --with-bz2="${bzip2_dir[0]}" \
+    --with-bz2 \
     --enable-bcmath \
     --with-jpeg \
     --with-webp \
     --enable-intl \
     --enable-pcntl \
-    --with-ldap \
     --with-gmp \
     --with-password-argon2 \
     --with-zlib \
     --with-freetype \
     --enable-soap \
     --enable-gd \
-    --with-imagick="${imagick_dir[0]}" \
+    --with-imagick \
     --enable-redis=shared
 
 make -j"$(nproc)"
