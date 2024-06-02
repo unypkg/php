@@ -76,7 +76,8 @@ archiving_source
 # shellcheck disable=SC2154
 unyc <<"UNYEOF"
 set -vx
-source /uny/build/functions
+source /uny/git/unypkg/fn
+
 pkgname="php"
 
 version_verbose_log_clean_unpack_cd
