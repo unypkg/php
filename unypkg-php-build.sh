@@ -89,9 +89,7 @@ get_include_paths
 ####################################################
 ### Start of individual build script
 
-export PKG_CONFIG_LIBDIR="$PKG_CONFIG_PATH"
-
-unset LD_RUN_PATH
+#unset LD_RUN_PATH
 
 readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
