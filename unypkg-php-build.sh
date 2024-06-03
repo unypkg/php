@@ -95,7 +95,7 @@ unset LD_RUN_PATH
 
 readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
-argon2_dir=(/uny/pkg/argon2/*)
+argon2_dir=(/uny/pkg/argon2/*/lib)
 imagick_dir=(/uny/pkg/imagemagick/*)
 
 ./configure \
