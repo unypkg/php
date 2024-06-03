@@ -60,8 +60,6 @@ for ext in "${extensions[@]}"; do
     rm "$ext".tgz
 done
 
-./buildconf --force
-
 cd /uny/sources || exit
 
 ls -lah
@@ -90,6 +88,8 @@ get_include_paths
 ### Start of individual build script
 
 #unset LD_RUN_PATH
+
+./buildconf --force
 
 readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
