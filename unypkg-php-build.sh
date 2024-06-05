@@ -12,7 +12,7 @@ apt install -y pkg-config build-essential autoconf bison re2c \
 wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
-unyp install openssl/1.1.1w re2c icu/68 curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
+unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
     pcre2 libxml2 libxslt libexif libzip oniguruma argon2
 
 ### Getting Variables from files
@@ -33,12 +33,12 @@ mkdir -pv /uny/sources
 cd /uny/sources || exit
 
 pkgname="php"
-pkggit="https://github.com/php/php-src.git refs/tags/php-7.4*"
+pkggit="https://github.com/php/php-src.git refs/tags/php-8.1*"
 gitdepth="--depth=1"
 
 ### Get version info from git remote
 # shellcheck disable=SC2086
-latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-7.4[0-9.]*$" | tail --lines=1)"
+latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-[0-9.]*$" | tail --lines=1)"
 latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
 latest_commit_id="$(echo "$latest_head" | cut --fields=1)"
 
