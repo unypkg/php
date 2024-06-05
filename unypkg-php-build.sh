@@ -79,6 +79,7 @@ set -vx
 source /uny/git/unypkg/fn
 
 disable_packages openssl/3.3.0
+rm -rf /uny/pkg/openssl/3.3.0
 
 pkgname="php"
 
