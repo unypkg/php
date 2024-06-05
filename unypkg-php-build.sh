@@ -33,7 +33,7 @@ mkdir -pv /uny/sources
 cd /uny/sources || exit
 
 pkgname="php"
-pkggit="https://github.com/php/php-src.git refs/tags/php-8.1*"
+pkggit="https://github.com/php/php-src.git refs/tags/php-8.2*"
 gitdepth="--depth=1"
 
 ### Get version info from git remote
