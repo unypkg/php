@@ -98,6 +98,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
+    --with-litespeed \
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
