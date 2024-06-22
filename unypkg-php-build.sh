@@ -98,12 +98,12 @@ imagick_dir=(/uny/pkg/imagemagick/*)
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
-    --with-litespeed \
+    --enable-litespeed \
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-config-file-path=/etc/uny \
-    --enable-gettext \
+    --with-gettext \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
