@@ -133,9 +133,10 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --enable-soap \
     --enable-gd \
     --with-imagick="${imagick_dir[0]}" \
-    --enable-redis=shared \
-    --with-pdo-pgsql=shared \
-    --with-pgsql=shared
+    --enable-redis=shared
+
+#    --with-pdo-pgsql=shared \
+#    --with-pgsql=shared
 
 make -j"$(nproc)"
 
