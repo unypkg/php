@@ -133,11 +133,15 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --enable-soap \
     --enable-gd \
     --with-imagick="${imagick_dir[0]}" \
-    --enable-redis=shared
+    --enable-redis=shared \
+    --with-pdo-pgsql=shared \
+    --with-pgsql=shared
 
 make -j"$(nproc)"
 
 make install
+
+install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/php/php/fpm/php-fpm.service
 
 ####################################################
 ### End of individual build script
