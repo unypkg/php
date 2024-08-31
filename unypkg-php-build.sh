@@ -13,7 +13,7 @@ wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
 unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
-    pcre2 libxml2 libxslt libexif libzip oniguruma argon2
+    pcre2 libxml2 libxslt libexif libzip oniguruma argon2 systemd
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
@@ -102,6 +102,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
+    --with-fpm-systemd \
     --with-config-file-path=/etc/uny \
     --enable-gettext \
     --with-readline="${readline_dir[0]}" \
