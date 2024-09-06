@@ -96,7 +96,7 @@ bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 
-small_pkgver="$(echo "$ver" | cut -d. -f1,2)"
+small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
