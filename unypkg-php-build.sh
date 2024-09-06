@@ -106,7 +106,6 @@ small_pkgver="$(echo "$ver" | cut -d. -f1,2)"
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-fpm-systemd \
-    --with-config-file-path=/etc/uny \
     --enable-gettext \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
