@@ -96,8 +96,11 @@ bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 
+small_pkgver="$(echo "$ver" | cut -d. -f1,2)"
+
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
+    --with-config-file-path=/etc/uny/php/"$small_pkgver" \
     --enable-litespeed \
     --enable-fpm \
     --with-fpm-user=unyweb \
