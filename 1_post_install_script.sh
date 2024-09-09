@@ -12,7 +12,9 @@ cd "$unypkg_root_dir" || exit
 
 small_pkgver="$(echo "$(basename "$unypkg_root_dir")" | cut -d. -f1,2)"
 mkdir -pv /etc/uny/php/"$small_pkgver"
-cp -a etc/php.ini-production /etc/uny/php/"$small_pkgver"/php.ini
+if [[ ! -f /etc/uny/php/"$small_pkgver"/php.ini ]]; then
+    cp -a etc/php.ini-production /etc/uny/php/"$small_pkgver"/php.ini
+fi
 
 cp -a php/php/fpm/php-fpm.service /etc/systemd/system/uny-php-fpm.service
 #sed "s|.*Alias=.*||g" -i /etc/systemd/system/uny-mariadb.service
