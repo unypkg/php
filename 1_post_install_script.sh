@@ -16,9 +16,9 @@ if [[ ! -f /etc/uny/php/"$small_pkgver"/php.ini ]]; then
     cp -a etc/php.ini-production /etc/uny/php/"$small_pkgver"/php.ini
 fi
 
-cp -a php/php/fpm/php-fpm.service /etc/systemd/system/uny-php-fpm.service
+cp -a php/php/fpm/php-fpm.service /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
 #sed "s|.*Alias=.*||g" -i /etc/systemd/system/uny-mariadb.service
-sed -e '/\[Install\]/a\' -e 'Alias=php-fpm.service' -i /etc/systemd/system/uny-php-fpm.service
+sed -e '/\[Install\]/a\' -e 'Alias=php'"$small_pkgver"'-fpm.service' -i /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
 systemctl daemon-reload
 
 #############################################################################################
