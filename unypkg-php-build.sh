@@ -97,6 +97,7 @@ readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
+gettext_dir=(/uny/pkg/gettext/*)
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -105,7 +106,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-config-file-path=/etc/uny \
-    --with-gettext \
+    --with-gettext="${gettext_dir[0]}" \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
