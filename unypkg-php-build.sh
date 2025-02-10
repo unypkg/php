@@ -108,7 +108,7 @@ gettext_dir=(/uny/pkg/gettext/* /uny/pkg/glibc/*)
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-config-file-path=/etc/uny \
-    --with-gettext="${gettext_dir[@]}" \
+    --with-gettext=\""${gettext_dir[@]}"\" \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
