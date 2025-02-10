@@ -63,7 +63,7 @@ for ext in "${extensions[@]}"; do
 done
 
 libintl_header_dir=(/uny/pkg/glibc/*)
-sed "s|PHP_GETTEXT /usr/local|PHP_GETTEXT ${ibintl_header_dir[0]} /usr/local|" -i ext/gettext/config.m4
+sed "s|PHP_GETTEXT /usr/local|PHP_GETTEXT ${libintl_header_dir[0]} /usr/local|" -i ext/gettext/config.m4
 
 cd /uny/sources || exit
 
