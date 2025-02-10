@@ -62,6 +62,8 @@ for ext in "${extensions[@]}"; do
     rm "$ext".tgz
 done
 
+sed -i ext/gettext/config.m4
+
 cd /uny/sources || exit
 
 ls -lah
@@ -97,7 +99,7 @@ readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
-gettext_dir=(/uny/pkg/gettext/*)
+gettext_dir=(/uny/pkg/gettext/* /uny/pkg/glibc/*)
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -106,7 +108,7 @@ gettext_dir=(/uny/pkg/gettext/*)
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-config-file-path=/etc/uny \
-    --with-gettext="${gettext_dir[0]}" \
+    --with-gettext="${gettext_dir[@]}" \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
