@@ -100,7 +100,7 @@ readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
-openssl_dir=(/uny/pkg/openssl/*)
+openssl_dir=/uny/pkg/openssl/1.1.1w
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -120,7 +120,7 @@ openssl_dir=(/uny/pkg/openssl/*)
     --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
     --enable-ctype \
-    --with-openssl="${openssl_dir[0]}"  \
+    --with-openssl="${openssl_dir}"  \
     --with-curl \
     --enable-exif \
     --enable-mbstring \
