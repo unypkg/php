@@ -64,7 +64,7 @@ done
 
 libintl_header_dir=(/uny/pkg/glibc/*)
 sed "s|PHP_GETTEXT /usr/local|PHP_GETTEXT ${libintl_header_dir[0]} /usr/local|" -i ext/gettext/config.m4
-rm -rf /uny/pkg/openssl/3.3.*
+#rm -rf /uny/pkg/openssl/3.3.*
 
 cd /uny/sources || exit
 
@@ -101,7 +101,6 @@ readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
-#openssl_dir=/uny/pkg/openssl/1.1.1w
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
@@ -121,7 +120,7 @@ imagick_dir=(/uny/pkg/imagemagick/*)
     --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
     --enable-ctype \
-    --with-openssl \
+    --with-openssl=/uny/pkg/openssl/1.1.1w \
     --with-curl \
     --enable-exif \
     --enable-mbstring \
