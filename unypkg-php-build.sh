@@ -98,13 +98,15 @@ bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 
+small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
+
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
+    --with-config-file-path=/etc/uny/php/"$small_pkgver" \
     --enable-litespeed \
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
-    --with-config-file-path=/etc/uny \
     --enable-gettext \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
