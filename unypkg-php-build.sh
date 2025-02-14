@@ -99,6 +99,7 @@ readline_dir=(/uny/pkg/readline/*)
 bzip2_dir=(/uny/pkg/bzip2/*)
 argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
+gettext_dir=(/uny/pkg/gettext/*)
 
 small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
 
@@ -110,7 +111,7 @@ small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
     --with-fpm-systemd \
-    --enable-gettext \
+    --with-gettext="${gettext_dir[0]}" \
     --with-readline="${readline_dir[0]}" \
     --disable-cgi \
     --disable-phpdbg \
