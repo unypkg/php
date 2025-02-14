@@ -140,6 +140,9 @@ make -j"$(nproc)"
 
 make install
 
+install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/php/php/fpm/php-fpm.service
+cp -a php.ini* /uny/pkg/"$pkgname"/"$pkgver"/etc/
+
 ####################################################
 ### End of individual build script
 
