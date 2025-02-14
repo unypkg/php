@@ -91,7 +91,7 @@ get_include_paths
 
 #unset LD_RUN_PATH
 
-CPPFLAGS="$CPPFLAGS -Dphp_strtolower=zend_str_tolower"
+export CPPFLAGS="-Dphp_strtolower=zend_str_tolower"
 
 ./buildconf --force
 
