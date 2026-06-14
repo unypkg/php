@@ -15,11 +15,13 @@ wget -qO- uny.nu/pkg | bash -s buildsys
 unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
     pcre2 libxml2 libxslt libexif libzip oniguruma argon2 systemd sqlite
 
-### Getting Variables from files
+### Getting Variables
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
 export UNY_AUTO_PAT
 GH_TOKEN="$(cat GH_TOKEN)"
 export GH_TOKEN
+GITHUB_REF_NAME="$(git branch --show-current)"
+export GITHUB_REF_NAME
 
 source /uny/git/unypkg/fn
 uny_auto_github_conf
