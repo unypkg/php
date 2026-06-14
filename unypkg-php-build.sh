@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034,SC1091,SC2154
 
-set -vx
+set -evx
 
 ######################################################################################################################
 ### Setup Build System and GitHub
@@ -13,7 +13,7 @@ wget -qO- uny.nu/pkg | bash -s buildsys
 
 ### Installing build dependencies
 unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
-    pcre2 libxml2 libxslt libexif libzip oniguruma argon2 systemd
+    pcre2 libxml2 libxslt libexif libzip oniguruma argon2 systemd sqlite
 
 ### Getting Variables from files
 UNY_AUTO_PAT="$(cat UNY_AUTO_PAT)"
@@ -36,7 +36,7 @@ pkgname="php"
 pkggit="https://github.com/php/php-src.git refs/tags/php-*"
 gitdepth="--depth=1"
 
-smallver=""
+smallver="$GITHUB_REF_NAME"
 
 ### Get version info from git remote
 # shellcheck disable=SC2086
@@ -123,7 +123,7 @@ gettext_dir=(/uny/pkg/gettext/*)
     --with-pdo-sqlite \
     --enable-igbinary \
     --enable-apcu \
-    --enable-apcu-igbinary
+    --enable-apcu-igbinary \
     --with-mysqli=mysqlnd \
     --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
