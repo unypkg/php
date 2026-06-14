@@ -54,7 +54,7 @@ git_clone_source_repo
 cd php-src || exit
 
 # Downloading external extensions
-declare -a extensions=("imagick" "redis")
+declare -a extensions=("imagick" "igbinary" "apcu" "redis")
 for ext in "${extensions[@]}"; do
     wget -O "$ext".tgz https://pecl.php.net/get/"$ext"
     mkdir -p ext/"$ext"
@@ -104,12 +104,12 @@ argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 gettext_dir=(/uny/pkg/gettext/*)
 
-small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
+#small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
-    --with-config-file-path=/etc/uny/php/"$small_pkgver" \
-    --enable-litespeed \
+    --with-config-file-path=/uny/etc/php/"$pkgver" \
+    --sysconfdir=/uny/etc/php/"$pkgver" \
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
@@ -119,9 +119,12 @@ small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
     --disable-cgi \
     --disable-phpdbg \
     --enable-sockets \
-    --without-sqlite3 \
-    --without-pdo-sqlite \
-    --with-mysqli \
+    --with-sqlite3 \
+    --with-pdo-sqlite \
+    --enable-igbinary \
+    --enable-apcu \
+    --enable-apcu-igbinary
+    --with-mysqli=mysqlnd \
     --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
     --enable-ctype \
@@ -143,8 +146,11 @@ small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
     --enable-soap \
     --enable-gd \
     --with-imagick="${imagick_dir[0]}" \
-    --enable-redis=shared
+    --enable-redis=shared \
+    --enable-redis-igbinary \
+    --enable-opcache 
 
+#    --enable-litespeed \
 #    --with-pdo-pgsql=shared \
 #    --with-pgsql=shared
 
@@ -152,11 +158,11 @@ make -j"$(nproc)"
 
 make install
 
-install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/php/php/fpm/php-fpm.service
+install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/etc/php-fpm.service
 cp -a php.ini* /uny/pkg/"$pkgname"/"$pkgver"/etc/
 
-shortver="$(echo "$small_pkgver" | tr -d "\.")"
-mv -v /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp"$shortver"
+#shortver="$(echo "$small_pkgver" | tr -d "\.")"
+#mv -v /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp"$shortver"
 
 ####################################################
 ### End of individual build script
