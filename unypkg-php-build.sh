@@ -123,7 +123,7 @@ gettext_dir=(/uny/pkg/gettext/*)
     --with-pdo-sqlite \
     --enable-igbinary \
     --enable-apcu \
-    --enable-apcu-igbinary
+    --enable-apcu-igbinary \
     --with-mysqli=mysqlnd \
     --with-mysql-sock=/run/mysqld/mysqld.sock \
     --with-pdo-mysql \
