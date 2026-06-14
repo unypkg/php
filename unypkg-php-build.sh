@@ -82,7 +82,7 @@ archiving_source
 # unyc - run commands in uny's chroot environment
 # shellcheck disable=SC2154
 unyc <<"UNYEOF"
-set -vx
+set -evx
 source /uny/git/unypkg/fn
 
 pkgname="php"
@@ -177,4 +177,5 @@ UNYEOF
 ######################################################################################################################
 ### Packaging
 
+set +x
 package_unypkg
