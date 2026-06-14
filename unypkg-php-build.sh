@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034,SC1091,SC2154
 
-set -evx
+set -vx
 
 ######################################################################################################################
 ### Setup Build System and GitHub
