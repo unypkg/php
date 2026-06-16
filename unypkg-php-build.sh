@@ -11,10 +11,6 @@ apt install -y pkg-config build-essential autoconf bison re2c \
 
 wget -qO- uny.nu/pkg | bash -s buildsys
 
-ls -lha /uny/usr/bin/env
-
-unyc
-
 ### Installing build dependencies
 unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
     pcre2 libxml2 libxslt libexif libzip oniguruma argon2 systemd sqlite
