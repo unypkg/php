@@ -11,10 +11,9 @@ apt install -y pkg-config build-essential autoconf bison re2c \
 
 wget -qO- uny.nu/pkg | bash -s buildsys
 
-if ! unyc; then
-    echo "unyc doesn't work, exiting..."
-    exit 1
-fi
+ls -lha /uny/usr/bin/env
+
+unyc
 
 ### Installing build dependencies
 unyp install openssl re2c icu curl libpng libwebp libjpeg-turbo freetype libgd imagemagick \
