@@ -39,6 +39,26 @@ fi
 #     fi
 # done
 
+# unyweb group
+if ! getent group unyweb >/dev/null; then
+    groupadd --system unyweb
+fi
+
+# unyphp FPM user in unyweb group, no home, nologin shell, system user
+if ! getent passwd unyphp >/dev/null; then
+    useradd --system \
+        --gid unyweb \
+        --shell /usr/bin/nologin \
+        --no-create-home \
+        --comment "PHP-FPM service user" \
+        unyphp
+else
+    # If the user exists but somehow dropped out of the group, fix it defensively
+    if ! id -nG unyphp | grep -qw unyweb; then
+        usermod -g unyweb unyphp
+    fi
+fi
+
 cp -a etc/php-fpm.service /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
 #sed "s|.*Alias=.*||g" -i /etc/systemd/system/uny-mariadb.service
 sed -e '/\[Install\]/a\' -e 'Alias=php'"$small_pkgver"'-fpm.service' -i /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
