@@ -14,12 +14,11 @@ pkgver="$(basename "$unypkg_root_dir")"
 small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
 
 mkdir -pv /uny/etc/php/"$pkgver"/php-fpm.d /etc/uny/php
-ln -sfv /uny/etc/php/"$pkgver" /etc/uny/php/"$pkgver"
+ln -sfv /uny/etc/php/"$pkgver" /etc/uny/php
 
-# 1. List all existing PHP directories and sort them correctly by version number
-# -mindepth 1 / -maxdepth 1 ensures we only look at immediate subdirectories
-# sort -V handles version numbers correctly (e.g., 8.3 comes before 8.12)
-versions=$(find /uny/etc/php/ -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort -V)
+# 1. List only PHP directories starting with the specific minor version ($small_pkgver)
+# We use "${small_pkgver}*" to match directories like 8.4, 8.4.7, 8.4.21, etc.
+versions=$(find /uny/etc/php/ -mindepth 1 -maxdepth 1 -type d -name "${small_pkgver}*" -exec basename {} \; | sort -V)
 
 # 2. Find the highest available version that is lower than the new $pkgver
 for v in $versions; do
@@ -45,7 +44,7 @@ if [[ ! -f /uny/etc/php/"$pkgver"/php.ini ]]; then
     cp -a etc/php.ini-production /uny/etc/php/"$pkgver"/php.ini
 fi
 if [[ ! -f /uny/etc/php/"$pkgver"/php-fpm.conf ]]; then
-    cp -a etc/php-fpm.conf-production /uny/etc/php/"$pkgver"/php-fpm.conf
+    cp -a etc/php-fpm.conf.default /uny/etc/php/"$pkgver"/php-fpm.conf
 fi
 
 # Check if any .conf file exists using a safe array approach
