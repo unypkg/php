@@ -51,7 +51,7 @@ if ! getent passwd unyphp >/dev/null; then
         --shell /bin/false \
         --no-create-home \
         --comment "PHP-FPM service user" \
-        unyphp
+        unyphp >/dev/null
 else
     # If the user exists but somehow dropped out of the group, fix it defensively
     if ! id -nG unyphp | grep -qw unyweb; then
