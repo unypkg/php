@@ -46,12 +46,14 @@ fi
 
 # unyphp FPM user in unyweb group, no home, nologin shell, system user
 if ! getent passwd unyphp >/dev/null; then
-    useradd --system \
+    if ! useradd --system \
         --gid unyweb \
         --shell /bin/false \
         --no-create-home \
         --comment "PHP-FPM service user" \
-        unyphp >/dev/null
+        unyphp >/dev/null 2>&1; then
+        echo "Failed to create user unyphp"
+    fi
 else
     # If the user exists but somehow dropped out of the group, fix it defensively
     if ! id -nG unyphp | grep -qw unyweb; then
