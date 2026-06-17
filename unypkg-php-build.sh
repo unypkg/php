@@ -114,7 +114,7 @@ small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
     --sysconfdir=/uny/etc/php/"$small_pkgver" \
     --enable-fpm \
     --with-fpm-user=unyphp \
-    --with-fpm-group=unyphp \
+    --with-fpm-group=unyweb \
     --with-fpm-systemd \
     --with-gettext="${gettext_dir[0]}" \
     --with-readline="${readline_dir[0]}" \

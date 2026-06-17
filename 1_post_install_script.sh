@@ -48,7 +48,7 @@ fi
 if ! getent passwd unyphp >/dev/null; then
     useradd --system \
         --gid unyweb \
-        --shell /usr/bin/nologin \
+        --shell /bin/false \
         --no-create-home \
         --comment "PHP-FPM service user" \
         unyphp
