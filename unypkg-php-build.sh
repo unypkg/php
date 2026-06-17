@@ -106,12 +106,12 @@ argon2_dir=(/uny/pkg/argon2/*)
 imagick_dir=(/uny/pkg/imagemagick/*)
 gettext_dir=(/uny/pkg/gettext/*)
 
-#small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
+small_pkgver="$(echo "$pkgver" | cut -d. -f1,2)"
 
 ./configure \
     --prefix=/uny/pkg/"$pkgname"/"$pkgver" \
-    --with-config-file-path=/uny/etc/php/"$pkgver" \
-    --sysconfdir=/uny/etc/php/"$pkgver" \
+    --with-config-file-path=/uny/etc/php/"$small_pkgver" \
+    --sysconfdir=/uny/etc/php/"$small_pkgver" \
     --enable-fpm \
     --with-fpm-user=unyweb \
     --with-fpm-group=unyweb \
@@ -161,9 +161,9 @@ make -j"$(nproc)"
 make install
 
 install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/etc/php-fpm.service
-
 cp -a php.ini* /uny/pkg/"$pkgname"/"$pkgver"/etc/
-cp -an /uny/etc/php/"$pkgver"/* /uny/pkg/"$pkgname"/"$pkgver"/etc/
+
+cp -an /uny/etc/php/"$small_pkgver"/. /uny/pkg/"$pkgname"/"$pkgver"/etc/
 
 #shortver="$(echo "$small_pkgver" | tr -d "\.")"
 #mv -v /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp"$shortver"
