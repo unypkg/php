@@ -160,10 +160,10 @@ make -j"$(nproc)"
 
 make install
 
+install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/etc/php-fpm.service
+
 cp -a php.ini* /uny/pkg/"$pkgname"/"$pkgver"/etc/
 cp -an /uny/etc/php/"$pkgver"/* /uny/pkg/"$pkgname"/"$pkgver"/etc/
-
-install -D -m644 sapi/fpm/php-fpm.service /uny/pkg/"$pkgname"/"$pkgver"/etc/php-fpm.service
 
 #shortver="$(echo "$small_pkgver" | tr -d "\.")"
 #mv -v /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp /uny/pkg/"$pkgname"/"$pkgver"/bin/lsphp"$shortver"
