@@ -61,6 +61,8 @@ else
     fi
 fi
 
+chown -R unyphp:unyweb /uny/etc/php/"$small_pkgver"
+
 cp -a etc/php-fpm.service /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
 #sed "s|.*Alias=.*||g" -i /etc/systemd/system/uny-mariadb.service
 sed -e '/\[Install\]/a\' -e 'Alias=php'"$small_pkgver"'-fpm.service' -i /etc/systemd/system/uny-php"$small_pkgver"-fpm.service
