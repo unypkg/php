@@ -40,8 +40,8 @@ smallver="8.1"
 
 ### Get version info from git remote
 # shellcheck disable=SC2086
-latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-${smallver}[0-9.]*$" | tail --lines=1)"
-latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
+latest_head="$(git ls-remote --heads $pkggit | grep -iE "php-${smallver}.*cve.*" | tail --lines=1)"
+latest_ver="8.1.34.cvefix1" #"$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
 latest_commit_id="$(echo "$latest_head" | cut --fields=1)"
 
 version_details
