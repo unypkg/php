@@ -33,15 +33,15 @@ mkdir -pv /uny/sources
 cd /uny/sources || exit
 
 pkgname="php"
-pkggit="https://github.com/php/php-src.git refs/tags/php-*"
+pkggit="https://github.com/php/php-src.git"
 gitdepth="--depth=1"
 
 smallver="7.4"
 
 ### Get version info from git remote
 # shellcheck disable=SC2086
-latest_head="$(git ls-remote --refs --tags --sort="v:refname" $pkggit | grep -E "php-${smallver}[0-9.]*$" | tail --lines=1)"
-latest_ver="$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
+latest_head="$(git ls-remote --heads $pkggit | grep -iE "php-${smallver}.*cve.*" | tail --lines=1)"
+latest_ver="7.4.33.cvefix1" #"$(echo "$latest_head" | grep -o "php-[0-9.]*" | sed "s|php-||")"
 latest_commit_id="$(echo "$latest_head" | cut --fields=1)"
 
 version_details
